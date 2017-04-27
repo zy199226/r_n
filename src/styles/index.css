@@ -1,0 +1,14 @@
+/*Normalize.css 只是一个很小的CSS文件，但它在默认的HTML元素样式上提供了跨浏览器的高度一致性*/
+@import '~normalize.css/normalize.css';
+@import "~github-markdown-css/github-markdown.css";
+
+body,h2,p,ul,li{
+    margin:0;
+    padding:0;
+}
+ul{
+	padding-left:0;
+}
+li{
+	list-style-type: none;
+}
