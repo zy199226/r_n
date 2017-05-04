@@ -9,7 +9,7 @@ import './styles/index.css';
 let store = configureStore();
 
 store.subscribe(() => {
-	console.log(store.getState());
+	// console.log(store.getState());
 });
 
 render(
