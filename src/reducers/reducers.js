@@ -9,14 +9,16 @@ const initialState = {
         pic: ''
     },
     home: {
-		all: {
-			limit: 20,
-			page: 0,
-			scrollT: 0,
-		},
-		good: {
-			page: 0
-		}
+        selTab: 'all',
+        all: {
+            limit: 20,
+            page: 0,
+            scrollT: 0,
+            topics: true
+        },
+        good: {
+            page: 0
+        }
     }
 };
 
@@ -35,20 +37,26 @@ export default function updata(state = initialState, action) {
                 }
             });
         case DOWNLOAD_ALL:
-            return Object.assign({}, state, {home: topics(action, state.home)});
+            return Object.assign({}, state, {
+                home: topics(action, state.home)
+            });
         default:
             return state;
     }
 }
 
 const topics = (action, home) => {
-	let data = {
-		limit: 20,
-		page: action.page,
-		topics: action.json.data
-	};
-	return Object.assign({}, home, {[action.tab]: data});
+    let data = {
+        limit: 20,
+        page: action.page,
+        topics: action.json.data
+    };
+    return Object.assign({}, home, {
+		selTab: action.tab,
+        [action.tab]: data
+    });
 };
+
 
 // const todoApp = combineReducers({loginToken, });
 //

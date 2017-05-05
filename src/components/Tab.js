@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchAll} from '../actions/actions';
-import List from '../components/list';
+import Lists from '../components/List';
 
 import {Tabs} from 'antd-mobile';
 const TabPane = Tabs.TabPane;
@@ -37,27 +37,27 @@ class Tab extends Component {
 	}
 
 	componentDidMount() {
-		this.handleTabClick();
+		// this.handleTabClick();
 	}
 
     handleTabClick(key = 1) {
-		let {data, dispatch} = this.props;
-		let tab = tabChn[key - 1].tab;
-		let page = 1;
-		if (data[tab] && data[tab].page) {
-			page = data[tab].page + 1;
-		}
-		dispatch(fetchAll(tab, page));
+		// let {data, dispatch} = this.props;
+		// let tab = tabChn[key - 1].tab;
+		// let page = 1;
+		// if (data[tab] && data[tab].page) {
+		// 	page = data[tab].page + 1;
+		// }
+		// dispatch(fetchAll(tab, page));
     }
 
     render() {
-        const {data, dispatch} = this.props;
+        const {dispatch} = this.props;
 
         return (
             <div>
                 <Tabs defaultActiveKey="1" animated={true} onChange={this.handleTabClick}>
                     {tabChn.map(i => <TabPane tab={i.name} key={i.key}>
-						<List data={data[i.tab]}/>
+						<Lists tab={i.tab}/>
                     </TabPane>)}
                 </Tabs>
             </div>

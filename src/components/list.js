@@ -1,33 +1,61 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {fetchAll} from '../actions/actions';
 
-import {ListView} from 'antd-mobile';
+import {ListView, List} from 'antd-mobile';
 
 
-class List extends Component {
-
-	componentDidMount() {
-		let {data} = this.props;
-		let tabData = data.topics;
-		console.log(tabData);
-		() => {
-			[...tabData].map((i) => console.log(i.title));
-		};
+class Lists extends Component {
+	constructor() {
+		super();
+		this.handleTabClick = this.handleTabClick.bind(this);
 	}
 
+	componentDidMount() {
+		this.handleTabClick();
+	}
+
+    handleTabClick() {
+		let {data, tab, dispatch} = this.props;
+		let page = 1;
+		if (data[tab] && data[tab].page) {
+			page = data[tab].page + 1;
+		}
+		dispatch(fetchAll(tab, page));
+		// dispatch(fetchAll('good', page));
+		// dispatch(fetchAll('share', page));
+		// dispatch(fetchAll('ask', page));
+		// dispatch(fetchAll('job', page));
+    }
 
 	render() {
-		let {data} = this.props;
-		let tabData = data.topics;
+		let {data, tab, selTab} = this.props;
+		let tt = data[tab];
+
+
+		const mapTopics = (
+			<List>
+				{(() => {
+					if (tt && tt.topics) {
+						return ([...tt.topics].map((i, index) => <List.Item key={index}>{i.title}</List.Item>));
+					}
+				})()}
+			</List>
+		);
 
 		return (
-			<div onClick={() => {
-				[...tabData].map((i) => console.log(i.title));
-			}}>
-				<h1>哈哈</h1>
-				<h1></h1>
+			<div>
+				{mapTopics}
 			</div>
 		);
 	}
 }
 
-export default List;
+const mapStateToProps = state => {
+	return {
+		data: state.home,
+		selTab: state.home.selTab
+	};
+};
+
+export default connect(mapStateToProps)(Lists);
