@@ -25,7 +25,6 @@ const fetchLogins = json => ({type: ACCESSTOKEN, json});
 export const fetchAll = (tab, page = 1, limit = 20) => {
 	return dispatch => {
 		fetch(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=${page}&limit=${limit}`).then(response => response.json()).then(json => {
-			// console.log(json);
 			dispatch(fetchAlls(json, tab, page));
 		});
 	};

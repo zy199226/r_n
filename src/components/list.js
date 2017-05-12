@@ -22,16 +22,11 @@ class Lists extends Component {
 			page = data[tab].page + 1;
 		}
 		dispatch(fetchAll(tab, page));
-		// dispatch(fetchAll('good', page));
-		// dispatch(fetchAll('share', page));
-		// dispatch(fetchAll('ask', page));
-		// dispatch(fetchAll('job', page));
     }
 
 	render() {
-		let {data, tab, selTab} = this.props;
+		let {data, tab} = this.props;
 		let tt = data[tab];
-
 
 		const mapTopics = (
 			<List>

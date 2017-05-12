@@ -9,7 +9,6 @@ const initialState = {
         pic: ''
     },
     home: {
-        selTab: 'all',
         all: {
             limit: 20,
             page: 0,
@@ -52,7 +51,6 @@ const topics = (action, home) => {
         topics: action.json.data
     };
     return Object.assign({}, home, {
-		selTab: action.tab,
         [action.tab]: data
     });
 };
