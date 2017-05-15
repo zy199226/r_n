@@ -40,7 +40,7 @@ class Tab extends Component {
 		// this.handleTabClick();
 	}
 
-    handleTabClick(key = 1) {
+    handleTabClick() {
 		// let {data, dispatch} = this.props;
 		// let tab = tabChn[key - 1].tab;
 		// let page = 1;
@@ -48,6 +48,7 @@ class Tab extends Component {
 		// 	page = data[tab].page + 1;
 		// }
 		// dispatch(fetchAll(tab, page));
+		console.log(this.state);
     }
 
     render() {
