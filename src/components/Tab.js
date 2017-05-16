@@ -48,7 +48,7 @@ class Tab extends Component {
 		// 	page = data[tab].page + 1;
 		// }
 		// dispatch(fetchAll(tab, page));
-		console.log(this.state);
+		// console.log(this);
     }
 
     render() {

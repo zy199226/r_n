@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchAll} from '../actions/actions';
 
+import {windowH} from '../until/value';
+
 import {ListView, List} from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -19,6 +21,7 @@ class Lists extends Component {
 	constructor() {
 		super();
 		this.handleTabClick = this.handleTabClick.bind(this);
+		this.scrollLoad = this.scrollLoad.bind(this);
 	}
 
 	componentDidMount() {
@@ -26,6 +29,7 @@ class Lists extends Component {
 	}
 
     handleTabClick() {
+		this.setState({inLoading: false});
 		let {data, tab, dispatch} = this.props;
 		let page = 1;
 		if (data[tab] && data[tab].page) {
@@ -33,6 +37,12 @@ class Lists extends Component {
 		}
 		dispatch(fetchAll(tab, page));
     }
+
+	scrollLoad(ref) {
+		if (ref.firstElementChild.clientHeight - ref.scrollTop - windowH <= 200) {
+			this.handleTabClick(true);
+		}
+	}
 
 	render() {
 		let {data, tab} = this.props;
@@ -85,11 +95,10 @@ class Lists extends Component {
 
 		return (
 			<div style={{
-				maxHeight: document.documentElement.clientHeight - 177,
-				overflow: 'scroll'
+				maxHeight: windowH - 177,
+				overflowY: 'scroll'
 			}} ref={tab} onScroll={() => {
-				this.setState({tab: this.refs[tab].scrollTop});
-				console.log(this.state, this.props);
+				this.scrollLoad(this.refs[tab]);
 			}}>
 				{mapTopics}
 			</div>
@@ -99,8 +108,7 @@ class Lists extends Component {
 
 const mapStateToProps = state => {
 	return {
-		data: state.home,
-		selTab: state.home.selTab
+		data: state.home
 	};
 };
 

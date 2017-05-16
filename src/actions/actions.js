@@ -22,11 +22,16 @@ export const fetchLogin = token => {
 const fetchLogins = json => ({type: ACCESSTOKEN, json});
 
 
+let isLoading = true;
 export const fetchAll = (tab, page = 1, limit = 20) => {
 	return dispatch => {
-		fetch(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=${page}&limit=${limit}`).then(response => response.json()).then(json => {
-			dispatch(fetchAlls(json, tab, page));
-		});
+		if (isLoading) {
+			isLoading = false;
+			fetch(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=${page}&limit=${limit}`).then(response => response.json()).then(json => {
+				dispatch(fetchAlls(json, tab, page));
+				isLoading = true;
+			});
+		}
 	};
 };
 

@@ -12,11 +12,7 @@ const initialState = {
         all: {
             limit: 20,
             page: 0,
-            scrollT: 0,
-            topics: true
-        },
-        good: {
-            page: 0
+            topics: ''
         }
     }
 };
@@ -45,10 +41,14 @@ export default function updata(state = initialState, action) {
 }
 
 const topics = (action, home) => {
+	let topics = action.json.data;
+	if (home[action.tab] && home[action.tab].topics) {
+		topics = home[action.tab].topics.concat(topics);
+	}
     let data = {
         limit: 20,
         page: action.page,
-        topics: action.json.data
+        topics: topics
     };
     return Object.assign({}, home, {
         [action.tab]: data

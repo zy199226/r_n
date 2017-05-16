@@ -2,8 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {openChange, fetchLogin} from '../actions/actions';
 
+import {windowH} from '../until/value';
+
 import {NavBar, Drawer, List} from 'antd-mobile';
 import Tab from '../components/Tab';
+
+const Item = List.Item;
 
 class Header extends Component {
 	componentDidMount() {
@@ -20,15 +24,15 @@ class Header extends Component {
 					<img src={login}></img>
 				</div>
 				<List>
-					<List.Item>abc</List.Item>
+					<Item>abc</Item>
 					{[...Array(4).keys()].map((i, index) => {
 						if (index === 0) {
 							return (
-								<List.Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png" multipleLine>Category</List.Item>
+								<Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png" multipleLine>Category</Item>
 							);
 						}
 						return (
-							<List.Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png">Category{index}</List.Item>
+							<Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png">Category{index}</Item>
 						);
 					})}
 				</List>
@@ -39,7 +43,7 @@ class Header extends Component {
             <div>
                 <NavBar iconName="ellipsis" onLeftClick={() => dispatch(openChange())}>cnode</NavBar>
                 <Drawer className="my-drawer" style={{
-                    minHeight: document.documentElement.clientHeight - 90
+                    minHeight: windowH - 90
                 }} dragHandleStyle={{
                     display: 'none'
                 }} contentStyle={{
