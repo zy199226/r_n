@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Provider} from 'react-redux';
+import { Router, browserHistory, hashHistory } from 'react-router';
 import configureStore from './store/configureStore';
-import Router from './router';
+import routes from './router';
 
 import './styles/index.css';
 
@@ -14,7 +15,7 @@ store.subscribe(() => {
 
 render(
 	<Provider store={store}>
-		<Router/>
+		<Router routes={routes} history={hashHistory}/>
 	</Provider>,
 	document.getElementById('root')
 );

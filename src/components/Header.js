@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import {openChange, fetchLogin} from '../actions/actions';
 
 import {windowH} from '../until/value';
@@ -20,9 +21,11 @@ class Header extends Component {
 
         const sidebar = (
 			<div>
-				<div className="icon">
-					<img src={login}></img>
-				</div>
+				<Link to={`/topic`}>
+					<div className="icon">
+						<img src={login}></img>
+					</div>
+				</Link>
 				<List>
 					<Item>abc</Item>
 					{[...Array(4).keys()].map((i, index) => {

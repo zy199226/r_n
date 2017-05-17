@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 import {fetchAll} from '../actions/actions';
 
-import {windowH} from '../until/value';
+import {windowH, time} from '../until/value';
 
 import {ListView, List} from 'antd-mobile';
 const Item = List.Item;
@@ -29,7 +30,6 @@ class Lists extends Component {
 	}
 
     handleTabClick() {
-		this.setState({inLoading: false});
 		let {data, tab, dispatch} = this.props;
 		let page = 1;
 		if (data[tab] && data[tab].page) {
@@ -48,46 +48,21 @@ class Lists extends Component {
 		let {data, tab} = this.props;
 		let tt = data[tab];
 
-		const time = (date) => {
-			let d = new Date() - new Date(date);
-			let createTime = '';
-			let year = Math.floor(d/365/24/60/60/1000);
-			let mouth = Math.floor(d/30/24/60/60/1000);
-			let day = Math.floor(d/24/60/60/1000);
-			let hours = Math.floor(d/60/60/1000);
-			let min = Math.floor(d/60/1000);
-			let sec = Math.floor(d/1000);
-			if (year >= 1) {
-				createTime = `${year}年前`;
-			} else if (mouth >= 1) {
-				createTime = `${mouth}月前`;
-			} else if (day >= 1) {
-				createTime = `${day}天前`;
-			} else if (hours >= 1) {
-				createTime = `${hours}小时前`;
-			} else if (min >= 1) {
-				createTime = `${min}分钟前`;
-			} else if (sec >= 1) {
-				createTime = `${sec}秒前`;
-			}
-			return createTime;
-		};
-
 		const mapTopics = (
 			<List>
 				{(() => {
 					if (tt && tt.topics) {
-						return ([...tt.topics].map((i, index) => <Item key={index} thumb={i.author.avatar_url} multipleLine>{i.title}
+						return ([...tt.topics].map((topics, index) => <Link key={index} to={`${''}/topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
 							<Brief>
-								<span>{`${i.reply_count}/${i.visit_count}`}</span>
+								<span>{`${topics.reply_count}/${topics.visit_count}`}</span>
 								<span style={{
 									marginLeft: '1em'
-								}}>{tabChn[i.tab]}</span>
+								}}>{tabChn[topics.tab]}</span>
 								<span style={{
 									float: 'right'
-								}}>{time(i.create_at)}</span>
+								}}>{time(topics.create_at)}</span>
 							</Brief>
-						</Item>));
+						</Item></Link>));
 					}
 				})()}
 			</List>

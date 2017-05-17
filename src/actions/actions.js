@@ -14,7 +14,7 @@ export const fetchLogin = token => {
 			},
 			body: `accesstoken=${token}`
 		}).then(response => response.json()).then(json => {
-			dispatch(fetchLogins(json.avatar_url));
+			dispatch(fetchLogins(json));
 		});
 	};
 };

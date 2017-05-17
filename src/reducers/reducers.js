@@ -28,7 +28,10 @@ export default function updata(state = initialState, action) {
         case ACCESSTOKEN:
             return Object.assign({}, state, {
                 login: {
-                    pic: action.json
+                    pic: action.json.avatar_url,
+					id: action.json.id,
+					loginname: action.json.loginname,
+					success: action.json.success
                 }
             });
         case DOWNLOAD_ALL:

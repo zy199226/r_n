@@ -31,32 +31,13 @@ const tabChn = [
 ];
 
 class Tab extends Component {
-	constructor() {
-		super();
-		this.handleTabClick = this.handleTabClick.bind(this);
-	}
-
-	componentDidMount() {
-		// this.handleTabClick();
-	}
-
-    handleTabClick() {
-		// let {data, dispatch} = this.props;
-		// let tab = tabChn[key - 1].tab;
-		// let page = 1;
-		// if (data[tab] && data[tab].page) {
-		// 	page = data[tab].page + 1;
-		// }
-		// dispatch(fetchAll(tab, page));
-		// console.log(this);
-    }
 
     render() {
         const {dispatch} = this.props;
 
         return (
             <div>
-                <Tabs defaultActiveKey="1" animated={true} onChange={this.handleTabClick}>
+                <Tabs defaultActiveKey="1" animated={true}>
                     {tabChn.map(i => <TabPane tab={i.name} key={i.key}>
 						<Lists tab={i.tab}/>
                     </TabPane>)}
@@ -66,10 +47,4 @@ class Tab extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-		data: state.home,
-	};
-};
-
-export default connect(mapStateToProps)(Tab);
+export default Tab;
