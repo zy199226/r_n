@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchAll} from '../actions/actions';
+import {changeTab, fetchAll} from '../actions/actions';
 import Lists from '../components/List';
 
 import {Tabs} from 'antd-mobile';
@@ -31,13 +31,30 @@ const tabChn = [
 ];
 
 class Tab extends Component {
+	constructor() {
+		super();
+		this.handleTabClick = this.handleTabClick.bind(this);
+	}
+
+	componentWillMount() {
+		this.handleTabClick();
+	}
+
+	handleTabClick(key = 1) {
+		let {data, dispatch} = this.props;
+		let tab = tabChn[key - 1].tab;
+		if (!data[tab]) {
+			dispatch(fetchAll(tab));
+		}
+		dispatch(changeTab(key));
+	}
 
     render() {
-        const {dispatch} = this.props;
+        const {tabKey, dispatch} = this.props;
 
         return (
             <div>
-                <Tabs defaultActiveKey="1" animated={true}>
+                <Tabs defaultActiveKey="1" animated={true} onChange={this.handleTabClick}>
                     {tabChn.map(i => <TabPane tab={i.name} key={i.key}>
 						<Lists tab={i.tab}/>
                     </TabPane>)}
@@ -47,4 +64,11 @@ class Tab extends Component {
     }
 }
 
-export default Tab;
+const mapStateToProps = state => {
+	return {
+		data: state.home,
+		tabKey: state.home.tab
+	};
+};
+
+export default connect(mapStateToProps)(Tab);

@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB} from '../constants/constants';
 // import {combineReducers} from 'redux';
 
 const initialState = {
@@ -9,11 +9,7 @@ const initialState = {
         pic: ''
     },
     home: {
-        all: {
-            limit: 20,
-            page: 0,
-            topics: ''
-        }
+		tab: 1
     }
 };
 
@@ -38,6 +34,10 @@ export default function updata(state = initialState, action) {
             return Object.assign({}, state, {
                 home: topics(action, state.home)
             });
+		case CHANGE_TAB:
+			return Object.assign({}, state, {
+				home: tab(action.key, state.home)
+			});
         default:
             return state;
     }
@@ -56,6 +56,10 @@ const topics = (action, home) => {
     return Object.assign({}, home, {
         [action.tab]: data
     });
+};
+
+const tab = (key, home) => {
+	return Object.assign({}, home, {tab: key});
 };
 
 

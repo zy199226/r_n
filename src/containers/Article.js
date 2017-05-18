@@ -5,7 +5,6 @@ import {Link} from 'react-router';
 class Article extends Component {
 	componentDidMount() {
 		let {data} = this.props;
-		console.log(data);
 	}
 
 	render() {

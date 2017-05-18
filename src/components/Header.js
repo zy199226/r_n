@@ -13,7 +13,9 @@ const Item = List.Item;
 class Header extends Component {
 	componentDidMount() {
 		let {login, dispatch} = this.props;
-		dispatch(fetchLogin('001d61da-10c6-4313-9b96-5689237d3fd8'));
+		if (!login) {
+			dispatch(fetchLogin('001d61da-10c6-4313-9b96-5689237d3fd8'));
+		}
 	}
 
     render() {
@@ -21,11 +23,9 @@ class Header extends Component {
 
         const sidebar = (
 			<div>
-				<Link to={`/topic`}>
-					<div className="icon">
-						<img src={login}></img>
-					</div>
-				</Link>
+				<div className="icon">
+					<img src={login}></img>
+				</div>
 				<List>
 					<Item>abc</Item>
 					{[...Array(4).keys()].map((i, index) => {

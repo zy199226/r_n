@@ -25,8 +25,12 @@ class Lists extends Component {
 		this.scrollLoad = this.scrollLoad.bind(this);
 	}
 
-	componentDidMount() {
-		this.handleTabClick();
+	componentWillMount() {
+		let {data, tab, dispatch} = this.props;
+		// console.log(document.querySelectorAll('.am-tabs-tabpane-active'));
+		if (data[tab] && data[tab].scrollT) {
+			this.refs[tab].scrollTop = data[tab].scrollT;
+		}
 	}
 
     handleTabClick() {
@@ -40,7 +44,7 @@ class Lists extends Component {
 
 	scrollLoad(ref) {
 		if (ref.firstElementChild.clientHeight - ref.scrollTop - windowH <= 200) {
-			this.handleTabClick(true);
+			this.handleTabClick();
 		}
 	}
 
@@ -52,7 +56,7 @@ class Lists extends Component {
 			<List>
 				{(() => {
 					if (tt && tt.topics) {
-						return ([...tt.topics].map((topics, index) => <Link key={index} to={`${''}/topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
+						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
 							<Brief>
 								<span>{`${topics.reply_count}/${topics.visit_count}`}</span>
 								<span style={{
