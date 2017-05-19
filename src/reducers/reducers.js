@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP} from '../constants/constants';
 // import {combineReducers} from 'redux';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
         pic: ''
     },
     home: {
-		tab: 1
+		selTab: '1'
     }
 };
 
@@ -59,7 +59,7 @@ const topics = (action, home) => {
 };
 
 const tab = (key, home) => {
-	return Object.assign({}, home, {tab: key});
+	return Object.assign({}, home, {selTab: key});
 };
 
 

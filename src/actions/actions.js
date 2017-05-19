@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP} from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
 export const openChange = () => {
@@ -39,3 +39,6 @@ const fetchAlls = (json, tab, page) => ({type: DOWNLOAD_ALL, json, tab, page});
 
 
 export const changeTab = key => ({type: CHANGE_TAB, key});
+
+
+export const scrollTop = top => ({type: SCROLLTOP, top});

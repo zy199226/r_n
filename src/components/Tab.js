@@ -37,10 +37,11 @@ class Tab extends Component {
 	}
 
 	componentWillMount() {
-		this.handleTabClick();
+		const {selTab} = this.props;
+		this.handleTabClick(selTab);
 	}
 
-	handleTabClick(key = 1) {
+	handleTabClick(key = '1') {
 		let {data, dispatch} = this.props;
 		let tab = tabChn[key - 1].tab;
 		if (!data[tab]) {
@@ -50,11 +51,11 @@ class Tab extends Component {
 	}
 
     render() {
-        const {tabKey, dispatch} = this.props;
+        const {selTab, dispatch} = this.props;
 
         return (
             <div>
-                <Tabs defaultActiveKey="1" animated={true} onChange={this.handleTabClick}>
+                <Tabs activeKey={selTab} swipeable={false} animated={true} onChange={this.handleTabClick}>
                     {tabChn.map(i => <TabPane tab={i.name} key={i.key}>
 						<Lists tab={i.tab}/>
                     </TabPane>)}
@@ -67,7 +68,7 @@ class Tab extends Component {
 const mapStateToProps = state => {
 	return {
 		data: state.home,
-		tabKey: state.home.tab
+		selTab: state.home.selTab
 	};
 };
 

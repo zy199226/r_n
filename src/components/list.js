@@ -23,6 +23,7 @@ class Lists extends Component {
 		super();
 		this.handleTabClick = this.handleTabClick.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
+		this.linkTo = this.linkTo.bind(this);
 	}
 
 	componentWillMount() {
@@ -48,6 +49,11 @@ class Lists extends Component {
 		}
 	}
 
+	linkTo(ref) {
+		const {tab, dispatch} = this.props;
+
+	}
+
 	render() {
 		let {data, tab} = this.props;
 		let tt = data[tab];
@@ -56,7 +62,7 @@ class Lists extends Component {
 			<List>
 				{(() => {
 					if (tt && tt.topics) {
-						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
+						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`} onClick={() => this.linkTo(this.refs[tab])}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
 							<Brief>
 								<span>{`${topics.reply_count}/${topics.visit_count}`}</span>
 								<span style={{
