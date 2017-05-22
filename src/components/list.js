@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {fetchAll} from '../actions/actions';
+import {fetchAll, changeTop} from '../actions/actions';
 
 import {windowH, time} from '../until/value';
 
@@ -23,15 +23,20 @@ class Lists extends Component {
 		super();
 		this.handleTabClick = this.handleTabClick.bind(this);
 		this.scrollLoad = this.scrollLoad.bind(this);
-		this.linkTo = this.linkTo.bind(this);
 	}
 
 	componentWillMount() {
 		let {data, tab, dispatch} = this.props;
-		// console.log(document.querySelectorAll('.am-tabs-tabpane-active'));
 		if (data[tab] && data[tab].scrollT) {
-			this.refs[tab].scrollTop = data[tab].scrollT;
+			setTimeout(() => {
+				this.refs[tab].scrollTop = data[tab].scrollT;
+			}, 0);
 		}
+	}
+
+	componentWillUnmount() {
+		const {tab, dispatch} = this.props;
+		dispatch(changeTop(this.refs[tab].scrollTop, tab));
 	}
 
     handleTabClick() {
@@ -49,10 +54,6 @@ class Lists extends Component {
 		}
 	}
 
-	linkTo(ref) {
-		const {tab, dispatch} = this.props;
-
-	}
 
 	render() {
 		let {data, tab} = this.props;
@@ -62,7 +63,9 @@ class Lists extends Component {
 			<List>
 				{(() => {
 					if (tt && tt.topics) {
-						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`} onClick={() => this.linkTo(this.refs[tab])}><Item key={index} thumb={topics.author.avatar_url} multipleLine>{topics.title}
+						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine style={{
+							borderTop: '1px solid #ddd'
+						}}>{topics.title}
 							<Brief>
 								<span>{`${topics.reply_count}/${topics.visit_count}`}</span>
 								<span style={{

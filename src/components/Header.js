@@ -5,7 +5,7 @@ import {openChange, fetchLogin} from '../actions/actions';
 
 import {windowH} from '../until/value';
 
-import {NavBar, Drawer, List} from 'antd-mobile';
+import {NavBar, Drawer, List, Icon} from 'antd-mobile';
 import Tab from '../components/Tab';
 
 const Item = List.Item;
@@ -27,15 +27,14 @@ class Header extends Component {
 					<img src={login}></img>
 				</div>
 				<List>
-					<Item>abc</Item>
 					{[...Array(4).keys()].map((i, index) => {
 						if (index === 0) {
 							return (
-								<Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png" multipleLine>Category</Item>
+								<Item key={index} multipleLine>Category</Item>
 							);
 						}
 						return (
-							<Item key={index} thumb="https://zos.alipayobjects.com/rmsportal/eOZidTabPoEbPeU.png">Category{index}</Item>
+							<Item key={index}>Category{index}</Item>
 						);
 					})}
 				</List>
@@ -44,7 +43,7 @@ class Header extends Component {
 
         return (
             <div>
-                <NavBar iconName="ellipsis" onLeftClick={() => dispatch(openChange())}>cnode</NavBar>
+                <NavBar iconName="ellipsis" onLeftClick={() => dispatch(openChange())} rightContent={[<Icon key="1" type="ellipsis" />]}>cnode</NavBar>
                 <Drawer className="my-drawer" style={{
                     minHeight: windowH - 90
                 }} dragHandleStyle={{

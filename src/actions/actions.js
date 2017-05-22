@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC} from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
 export const openChange = () => {
@@ -41,4 +41,13 @@ const fetchAlls = (json, tab, page) => ({type: DOWNLOAD_ALL, json, tab, page});
 export const changeTab = key => ({type: CHANGE_TAB, key});
 
 
-export const scrollTop = top => ({type: SCROLLTOP, top});
+export const changeTop = (top, tab) => ({type: SCROLLTOP, top, tab});
+
+
+export const fetchTopic = id => {
+	return dispatch => {
+		fetch(`https://cnodejs.org/api/v1/topic/${id}`).then(response => response.json()).then(json => {
+			console.log(json);
+		});
+	};
+};

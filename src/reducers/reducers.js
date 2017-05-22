@@ -38,6 +38,10 @@ export default function updata(state = initialState, action) {
 			return Object.assign({}, state, {
 				home: tab(action.key, state.home)
 			});
+		case SCROLLTOP:
+			return Object.assign({}, state, {
+				home: top(action, state.home)
+			});
         default:
             return state;
     }
@@ -60,6 +64,11 @@ const topics = (action, home) => {
 
 const tab = (key, home) => {
 	return Object.assign({}, home, {selTab: key});
+};
+
+const top = (action, home) => {
+	let data = Object.assign({}, home[action.tab], {scrollT: action.top});
+	return Object.assign({}, home, {[action.tab]: data});
 };
 
 
