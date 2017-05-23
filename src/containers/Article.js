@@ -7,13 +7,15 @@ import {NavBar, Icon} from 'antd-mobile';
 
 class Article extends Component {
     componentWillMount() {
-        let {dispatch} = this.props;
+        let {topicId, dispatch} = this.props;
 		let id = window.location.href.split('topic/')[1];
-		dispatch(fetchTopic(id));
+		if (topicId != id) {
+			dispatch(fetchTopic(id));
+		}
     }
 
     render() {
-        let {data} = this.props;
+        let {topicId, data} = this.props;
 
         return (
             <div>
@@ -24,13 +26,19 @@ class Article extends Component {
 					rightContent={[<Icon key="1" type="ellipsis" />]}>
 					详情
 				</NavBar>
+				<div>
+
+				</div>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return {data: state.home};
+    return {
+		data: state.home,
+		topicId: state.article.topicId
+	};
 };
 
 export default connect(mapStateToProps)(Article);

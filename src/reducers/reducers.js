@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC} from '../constants/constants';
 // import {combineReducers} from 'redux';
 
 const initialState = {
@@ -10,7 +10,10 @@ const initialState = {
     },
     home: {
 		selTab: '1'
-    }
+    },
+	article: {
+		topicId: ''
+	}
 };
 
 export default function updata(state = initialState, action) {
@@ -41,6 +44,13 @@ export default function updata(state = initialState, action) {
 		case SCROLLTOP:
 			return Object.assign({}, state, {
 				home: top(action, state.home)
+			});
+		case OPEN_TOPIC:
+			return Object.assign({}, state, {
+				article: {
+					data: action.json.data,
+					topicId: action.json.data.id
+				}
 			});
         default:
             return state;
