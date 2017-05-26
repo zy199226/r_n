@@ -45,3 +45,45 @@ li{
 	width: 3em;
 	height: 3em;
 }
+
+.mb{
+	padding: 30px;
+}
+
+.mb img{
+	width: 100%;
+	max-width: 80%;
+	display: block;
+	margin: auto;
+}
+
+.mb p{
+	line-height: 1.6em;
+}
+
+.mb ul li{
+	line-height: 1.6em;
+	margin-bottom: 0.2em;
+}
+
+.mb h2{
+	margin: .4em 0;
+	padding: .4em 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.mb table{
+	width: 100%;
+}
+
+.mb pre{
+	overflow: auto;
+	background: #f6f8fa;
+	padding: 20px;
+}
+
+
+.contentList .am-list-item img{
+	width: 3em;
+	height: 3em;
+}

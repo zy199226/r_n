@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC, CLEAR_TOPIC} from '../constants/constants';
 // import {combineReducers} from 'redux';
 
 const initialState = {
@@ -50,6 +50,13 @@ export default function updata(state = initialState, action) {
 				article: {
 					data: action.json.data,
 					topicId: action.json.data.id
+				}
+			});
+		case CLEAR_TOPIC:
+			return Object.assign({}, state, {
+				article: {
+					data: '',
+					topicId: ''
 				}
 			});
         default:

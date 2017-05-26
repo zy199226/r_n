@@ -5,7 +5,7 @@ import {fetchAll, changeTop} from '../actions/actions';
 
 import {windowH, time} from '../until/value';
 
-import {ListView, List} from 'antd-mobile';
+import {List} from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
 

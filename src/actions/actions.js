@@ -1,4 +1,4 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC} from '../constants/constants';
+import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC, CLEAR_TOPIC} from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 
 export const openChange = () => {
@@ -46,6 +46,7 @@ export const changeTop = (top, tab) => ({type: SCROLLTOP, top, tab});
 
 export const fetchTopic = id => {
 	return dispatch => {
+		dispatch(clearTopics());
 		fetch(`https://cnodejs.org/api/v1/topic/${id}`).then(response => response.json()).then(json => {
 			dispatch(fetchTopics(json));
 		});
@@ -53,3 +54,4 @@ export const fetchTopic = id => {
 };
 
 const fetchTopics = json => ({type: OPEN_TOPIC, json});
+const clearTopics = () => ({type: CLEAR_TOPIC});
