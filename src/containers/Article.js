@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {fetchTopic} from '../actions/actions';
+import {fetchTopic, clearTopics} from '../actions/actions';
 
 import {windowH, windowW} from '../until/value';
 
@@ -15,6 +15,7 @@ class Article extends Component {
         let {topicId, dispatch} = this.props;
 		let id = window.location.href.split('topic/')[1];
 		if (topicId != id) {
+            dispatch(clearTopics());
 			dispatch(fetchTopic(id));
 		}
     }

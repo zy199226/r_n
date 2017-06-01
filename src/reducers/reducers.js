@@ -1,4 +1,14 @@
-import {OPEN_CHANGE, ACCESSTOKEN, DOWNLOAD_ALL, CHANGE_TAB, SCROLLTOP, OPEN_TOPIC, CLEAR_TOPIC} from '../constants/constants';
+import {
+	OPEN_CHANGE,
+	ACCESSTOKEN,
+	DOWNLOAD_ALL,
+	CHANGE_TAB,
+	SCROLLTOP,
+	OPEN_TOPIC,
+	CLEAR_TOPIC,
+	TOPIC_COLLECT,
+	SWITCH_COLLECT
+} from '../constants/constants';
 // import {combineReducers} from 'redux';
 
 const initialState = {
@@ -13,6 +23,9 @@ const initialState = {
     },
 	article: {
 		topicId: ''
+	},
+	profile: {
+
 	}
 };
 
@@ -27,6 +40,7 @@ export default function updata(state = initialState, action) {
         case ACCESSTOKEN:
             return Object.assign({}, state, {
                 login: {
+					accessToken: action.token,
                     pic: action.json.avatar_url,
 					id: action.json.id,
 					loginname: action.json.loginname,
@@ -59,10 +73,20 @@ export default function updata(state = initialState, action) {
 					topicId: ''
 				}
 			});
+		case TOPIC_COLLECT:
+			return Object.assign({}, state, {
+				profile: collect(action, state.profile)
+			});
         default:
             return state;
     }
 }
+
+const collect = (action, profile) => {
+	return Object.assign({}, profile, {
+		collectedTopics: action.data
+	});
+};
 
 const topics = (action, home) => {
 	let topics = action.json.data;

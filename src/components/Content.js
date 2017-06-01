@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import {switchCollected} from '../actions/actions';
 import {time} from '../until/value';
 
 import {List, Button} from 'antd-mobile';
@@ -9,8 +10,37 @@ const Brief = Item.Brief;
 
 
 class Content extends Component {
+	constructor() {
+		super();
+		this.state = {
+			isCollected: false
+		};
+	}
+
+	componentWillMount() {
+		// this.update(this.props);
+	}
+
+	componentWillReceiveProps(newProps) {
+		if (this.props.collectedTopics !== newProps.collectedTopics || this.props.article.id !== newProps.article.id) {
+			this.update(newProps);
+		}
+	}
+
+	update(props) {
+		const {article, login, collectedTopics} = props;
+		if (login.success && collectedTopics && collectedTopics.length !== 0) {
+			let isCollected = collectedTopics.some(topic => {
+				return article.id === topic.id;
+			});
+			this.setState({
+				isCollected: isCollected
+			});
+		}
+	}
+
 	render() {
-		const {article} = this.props;
+		const {login, article, dispatch} = this.props;
 
 		return (
 			<div>
@@ -39,9 +69,15 @@ class Content extends Component {
 										<span style={{
 											lineHeight: '1.6em'
 										}}>{`${article.reply_count}/${article.visit_count}`}</span>
-										<Button type='ghost' inline size='small' style={{
+										<Button type={this.state.isCollected ? 'primary' : 'ghost'} inline size='small' style={{
 											float: 'right'
-										}}>关注</Button>
+										}} onClick={() => {
+											this.setState({
+												isCollected: !this.state.isCollected
+											});
+											dispatch(switchCollected(this.state.isCollected, login.accessToken,
+											article.id, login.loginname));
+										}}>{this.state.isCollected ? '已关注' : '关注'}</Button>
 									</div>
 								</div>
 								<div className='mb' dangerouslySetInnerHTML={{__html: article.content}}></div>
@@ -56,7 +92,9 @@ class Content extends Component {
 
 const mapStateToProps = state => {
 	return {
-		article: state.article.data
+		article: state.article.data,
+		login: state.login,
+		collectedTopics: state.profile.collectedTopics
 	};
 };
 

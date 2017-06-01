@@ -11,20 +11,17 @@ import Tab from '../components/Tab';
 const Item = List.Item;
 
 class Header extends Component {
-	componentDidMount() {
-		let {login, dispatch} = this.props;
-		if (!login) {
-			dispatch(fetchLogin('001d61da-10c6-4313-9b96-5689237d3fd8'));
-		}
+	componentWillMount() {
+
 	}
 
     render() {
-        const {drawer, login, dispatch} = this.props;
+        const {drawer, pic, dispatch} = this.props;
 
         const sidebar = (
 			<div>
 				<div className="icon">
-					<img src={login}></img>
+					<img src={pic}></img>
 				</div>
 				<List>
 					{[...Array(4).keys()].map((i, index) => {
@@ -62,7 +59,7 @@ class Header extends Component {
 const mapStateToProps = state => {
     return {
 		drawer: state.drawer.bollean,
-		login: state.login.pic,
+		pic: state.login.pic,
 	};
 };
 

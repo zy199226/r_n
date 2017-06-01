@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchAll} from '../actions/actions';
+import {fetchAll, fetchLogin} from '../actions/actions';
 
 class App extends Component {
 	componentWillMount() {
-		
+		let {pic, dispatch} = this.props;
+		if (!pic) {
+			dispatch(fetchLogin('001d61da-10c6-4313-9b96-5689237d3fd8'));
+		}
 	}
 
 	render() {
@@ -16,7 +19,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
 	return {
-		data: state.home
+		data: state.home,
+		pic: state.login.pic,
 	};
 };
 
