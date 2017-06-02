@@ -7,6 +7,7 @@ import {windowH, windowW} from '../until/value';
 
 import Content from '../components/Content';
 import ContentList from '../components/ContentList';
+import AnotherHeader from '../components/AnotherHeader';
 
 import {NavBar, Icon} from 'antd-mobile';
 
@@ -25,13 +26,7 @@ class Article extends Component {
 
         return (
             <div>
-                <NavBar
-					leftContent="back"
-					mode="dark"
-					onLeftClick={() => history.back()}
-					rightContent={[<Icon key="1" type="ellipsis" />]}>
-					详情
-				</NavBar>
+                <AnotherHeader title='详情' />
 				<div style={{
 					maxHeight: windowH - 90,
 					overflowY: 'scroll',

@@ -7,7 +7,7 @@ import {
 	OPEN_TOPIC,
 	CLEAR_TOPIC,
 	TOPIC_COLLECT,
-	SWITCH_COLLECT
+	FETCH_DETAIL
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 import {Toast} from 'antd-mobile';
@@ -134,3 +134,35 @@ export const fetchContent = (accessToken, content, topicId, replyId) => {
 		});
 	};
 };
+
+
+export const fetchPublish = (accessToken, title, tab, content) => {
+	return dispatch => {
+		fetch('https://cnodejs.org/api/v1/topics', {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: `accesstoken=${accessToken}&title=${title}&tab=${tab}&content=${content}`
+		}).then(response => response.json()).then(json => {
+			if (json.success) {
+				window.location.href = `./#/topic/${json.topic_id}`;
+			} else if (!json.success) {
+				Toast.fail(`${json.error_msg}`, 1);
+			} else {
+				Toast.fail('出错了。。。', 1);
+			}
+		});
+	};
+};
+
+
+export const fetchDetail = loginname => {
+	return dispatch => {
+		fetch(`https://cnodejs.org/api/v1/user/${loginname}`).then(response => response.json()).then(json => {
+			dispatch(fetchDetails(json.data));
+		});
+	};
+};
+
+const fetchDetails = data => ({type: FETCH_DETAIL, data});

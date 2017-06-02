@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
 import {connect} from 'react-redux';
 
 import {switchSupport, fetchContent} from '../actions/actions';
@@ -31,6 +30,7 @@ class ContentList extends Component {
         if (reply) {
             this.supportState(reply, login);
         }
+        this.setState({reply: []});
     }
 
     componentWillReceiveProps(newProps) {
@@ -106,7 +106,7 @@ class ContentList extends Component {
                                 overflow: 'hidden'
                             }}>
                                 <TextareaItem  defaultValue={`@${i.author.loginname} `} data-seed="logId" autoHeight style={{
-                                    background: '#eee'
+                                    background: '#f8f8f8'
                                 }}/>
                                 <Button type='primary' inline size="large" style={{
                                     marginTop: '2em'

@@ -6,4 +6,4 @@ export const SCROLLTOP= 'SCROLLTOP';
 export const OPEN_TOPIC= 'OPEN_TOPIC';
 export const CLEAR_TOPIC= 'CLEAR_TOPIC';
 export const TOPIC_COLLECT= 'TOPIC_COLLECT';
-export const SWITCH_COLLECT= 'SWITCH_COLLECT';
+export const FETCH_DETAIL= 'FETCH_DETAIL';

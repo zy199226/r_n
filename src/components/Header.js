@@ -16,31 +16,57 @@ class Header extends Component {
 	}
 
     render() {
-        const {drawer, pic, dispatch} = this.props;
+        const {loginName, drawer, pic, dispatch} = this.props;
 
         const sidebar = (
 			<div>
-				<div className="icon">
-					<img src={pic}></img>
+				<div style={{
+					width: '4rem',
+					height: '4rem',
+					borderRadius: '50%',
+					margin: '3rem auto 0.5rem',
+					overflow: 'hidden',
+					background: '#abcdef'
+				}}>
+					<img src={pic} style={{
+						width: '100%',
+						height: '100%'
+					}}></img>
 				</div>
+				<p style={{
+					textAlign: 'center',
+					marginBottom: '1.2rem'
+				}}>{loginName}</p>
 				<List>
-					{[...Array(4).keys()].map((i, index) => {
-						if (index === 0) {
-							return (
-								<Item key={index} multipleLine>Category</Item>
-							);
-						}
-						return (
-							<Item key={index}>Category{index}</Item>
-						);
-					})}
+					<Link key='login' to='login' style={{
+						display: 'block',
+						border: '1px solid #eee',
+						color: '#333',
+						padding: '0.5rem 0.8rem',
+						fontSize: '0.8rem'
+					}}>
+						个人中心
+					</Link>
+					<Link key='message' to='message' style={{
+						display: 'block',
+						border: '1px solid #eee',
+						color: '#333',
+						padding: '0.5rem 0.8rem',
+						fontSize: '0.8rem'
+					}}>
+						信息
+					</Link>
 				</List>
 			</div>
         );
 
         return (
             <div>
-                <NavBar iconName="ellipsis" onLeftClick={() => dispatch(openChange())} rightContent={[<Icon key="1" type="ellipsis" />]}>cnode</NavBar>
+                <NavBar iconName="ellipsis" onLeftClick={() => dispatch(openChange())} rightContent={[<Link key='Add' to={`publishTopic`} style={{
+					fontSize: '1.2rem',
+					lineHeight: '1rem',
+					color: '#fff'
+				}}>+</Link>]}>cnode</NavBar>
                 <Drawer className="my-drawer" style={{
                     minHeight: windowH - 90
                 }} dragHandleStyle={{
@@ -60,6 +86,7 @@ const mapStateToProps = state => {
     return {
 		drawer: state.drawer.bollean,
 		pic: state.login.pic,
+		loginName: state.login.loginname
 	};
 };
 

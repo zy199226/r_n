@@ -7,7 +7,7 @@ import {
 	OPEN_TOPIC,
 	CLEAR_TOPIC,
 	TOPIC_COLLECT,
-	SWITCH_COLLECT
+	FETCH_DETAIL
 } from '../constants/constants';
 // import {combineReducers} from 'redux';
 
@@ -25,7 +25,9 @@ const initialState = {
 		topicId: ''
 	},
 	profile: {
-
+		collectedTopics: [],
+		recent_replies: [],
+		recent_topics: []
 	}
 };
 
@@ -77,10 +79,18 @@ export default function updata(state = initialState, action) {
 			return Object.assign({}, state, {
 				profile: collect(action, state.profile)
 			});
+		case FETCH_DETAIL:
+			return Object.assign({}, state, {
+				profile: detail(action, state.profile)
+			});
         default:
             return state;
     }
 }
+
+const detail = (action, profile) => {
+	return Object.assign({}, profile, action.data);
+};
 
 const collect = (action, profile) => {
 	return Object.assign({}, profile, {
