@@ -69,15 +69,20 @@ class Content extends Component {
 										<span style={{
 											lineHeight: '1.6em'
 										}}>{`${article.reply_count}/${article.visit_count}`}</span>
-										<Button type={this.state.isCollected ? 'primary' : 'ghost'} inline size='small' style={{
-											float: 'right'
-										}} onClick={() => {
-											this.setState({
-												isCollected: !this.state.isCollected
-											});
-											dispatch(switchCollected(this.state.isCollected, login.accessToken,
-											article.id, login.loginname));
-										}}>{this.state.isCollected ? '已关注' : '关注'}</Button>
+										{login.loginName
+											?
+											(<Button type={this.state.isCollected ? 'primary' : 'ghost'} inline size='small' style={{
+												float: 'right'
+											}} onClick={() => {
+												this.setState({
+													isCollected: !this.state.isCollected
+												});
+												dispatch(switchCollected(this.state.isCollected, login.accessToken,
+												article.id, login.loginname));
+											}}>{this.state.isCollected ? '已关注' : '关注'}</Button>)
+											:
+											<span></span>
+										}
 									</div>
 								</div>
 								<div className='mb' dangerouslySetInnerHTML={{__html: article.content}}></div>

@@ -1,5 +1,4 @@
 import {
-	OPEN_CHANGE,
 	ACCESSTOKEN,
 	DOWNLOAD_ALL,
 	CHANGE_TAB,
@@ -7,7 +6,9 @@ import {
 	OPEN_TOPIC,
 	CLEAR_TOPIC,
 	TOPIC_COLLECT,
-	FETCH_DETAIL
+	FETCH_DETAIL,
+	FETCH_MESSAGE,
+	LOGIN_OUT
 } from '../constants/constants';
 // import {combineReducers} from 'redux';
 
@@ -28,17 +29,15 @@ const initialState = {
 		collectedTopics: [],
 		recent_replies: [],
 		recent_topics: []
+	},
+	message: {
+		hasNotRead: [],
+		hasRead: []
 	}
 };
 
 export default function updata(state = initialState, action) {
     switch (action.type) {
-        case OPEN_CHANGE:
-            return Object.assign({}, state, {
-                drawer: {
-                    bollean: !state.drawer.bollean
-                }
-            });
         case ACCESSTOKEN:
             return Object.assign({}, state, {
                 login: {
@@ -83,6 +82,15 @@ export default function updata(state = initialState, action) {
 			return Object.assign({}, state, {
 				profile: detail(action, state.profile)
 			});
+		case FETCH_MESSAGE:
+			return Object.assign({}, state, {
+				message: {
+					hasNotRead: action.hasNotRead,
+					hasRead: action.hasRead
+				}
+			});
+		case LOGIN_OUT:
+			return Object.assign({}, initialState, {home: state.home});
         default:
             return state;
     }

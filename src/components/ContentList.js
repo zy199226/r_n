@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import PleaceLogin from '../components/PleaceLogin';
 import {switchSupport, fetchContent} from '../actions/actions';
 import {time} from '../until/value';
 
@@ -83,7 +84,16 @@ class ContentList extends Component {
                                         ? 'red'
                                         : '#333'
                                 }} onClick={() => {
-                                    dispatch(switchSupport(login.accessToken, i.id, topicId));
+                                    if (login.loginname) {
+                                        dispatch(switchSupport(login.accessToken, i.id, topicId));
+                                    } else {
+                                        let text = this.refs[key];
+                                        if (text.clientHeight === 0) {
+                                            text.style.cssText = 'height: auto;padding: 30px;overflow: hidden;';
+                                        } else {
+                                            text.style.cssText = 'height: 0; padding: 0;overflow: hidden';
+                                        }
+                                    }
                                 }}>{this.state.supportNum[key]}赞</span>
                                 <span style={{
                                     float: 'right',
@@ -92,11 +102,15 @@ class ContentList extends Component {
                                     let text = this.refs[key];
                                     if (text.clientHeight === 0) {
                                         text.style.cssText = 'height: auto;padding: 30px;overflow: hidden;';
-                                        text.querySelector('textarea').focus();
+                                        if (login.loginName) {
+                                            text.querySelector('textarea').focus();
+                                        }
                                     } else {
                                         text.style.cssText = 'height: 0; padding: 0;overflow: hidden';
-                                        text.querySelector('textarea').blur();
                                         text.value = `@${i.author.loginname} `;
+                                        if (login.loginName) {
+                                            text.querySelector('textarea').blur();
+                                        }
                                     }
                                 }}>回复</span>
                             </div>
@@ -105,33 +119,45 @@ class ContentList extends Component {
                                 boxSizing: 'border-box',
                                 overflow: 'hidden'
                             }}>
-                                <TextareaItem  defaultValue={`@${i.author.loginname} `} data-seed="logId" autoHeight style={{
-                                    background: '#f8f8f8'
-                                }}/>
-                                <Button type='primary' inline size="large" style={{
-                                    marginTop: '2em'
-                                }} onClick={() => {
-                                    let text = this.refs[key].querySelector('textarea');
-                                    dispatch(fetchContent(login.accessToken, text.value, topicId, i.id));
-                                    text.value = `@${i.author.loginname} `;
-                                    this.refs[key].style.cssText = 'height: 0; padding: 0;overflow: hidden';
-                                    text.blur();
-                                }}>回复</Button>
+                                {login.loginname
+                                    ?
+                                    <div>
+                                        <TextareaItem  defaultValue={`@${i.author.loginname} `} data-seed="logId" autoHeight style={{
+                                            background: '#f8f8f8'
+                                        }}/>
+                                        <Button type='primary' inline size="large" style={{
+                                            marginTop: '2em'
+                                        }} onClick={() => {
+                                            let text = this.refs[key].querySelector('textarea');
+                                            dispatch(fetchContent(login.accessToken, text.value, topicId, i.id));
+                                            text.value = `@${i.author.loginname} `;
+                                            this.refs[key].style.cssText = 'height: 0; padding: 0;overflow: hidden';
+                                            text.blur();
+                                        }}>回复</Button>
+                                    </div>
+                                    :
+                                    <PleaceLogin />
+                                }
                             </div>
                         </Item>));
                     }
                 })()}
-                <div style={{
-                    padding: '30px'
-                }}>
-                    <TextareaItem ref='text' placeholder="请输入内容" data-seed="logId" autoHeight/>
-                    <Button type='primary' inline size="large" style={{
-                        marginTop: '2em'
-                    }} onClick={() => {
-                        dispatch(fetchContent(login.accessToken, this.refs.text.refs.textarea.value, topicId));
-                        this.refs.text.refs.textarea.value = '';
-                    }}>回复</Button>
-                </div>
+                {login.loginname
+                    ?
+                    (<div style={{
+                        padding: '30px'
+                    }}>
+                        <TextareaItem ref='text' placeholder="请输入内容" data-seed="logId" autoHeight/>
+                        <Button type='primary' inline size="large" style={{
+                            marginTop: '2em'
+                        }} onClick={() => {
+                            dispatch(fetchContent(login.accessToken, this.refs.text.refs.textarea.value, topicId));
+                            this.refs.text.refs.textarea.value = '';
+                        }}>回复</Button>
+                    </div>)
+                    :
+                    <PleaceLogin />
+                }
             </div>
         );
     }

@@ -6,8 +6,9 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import Article from './containers/Article';
 import PublishTopic from './containers/PublishTopic';
-import Login from './containers/Login';
+import Center from './containers/Center';
 import Message from './containers/Message';
+import Login from './containers/Login';
 
 class Routes extends Component {
 	render() {
@@ -17,8 +18,9 @@ class Routes extends Component {
 					<IndexRoute component={HomePage}/>
 					<Route path='topic/:id' component={Article} />
 					<Route path='publishTopic' component={PublishTopic} />
-					<Route path='login' component={Login} />
+					<Route path='center' component={Center} />
 					<Route path='message' component={Message} />
+					<Route path='login' component={Login} />
 				</Route>
 			</Router>
 		);

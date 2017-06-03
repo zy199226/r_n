@@ -1,4 +1,3 @@
-export const OPEN_CHANGE = 'OPEN_CHANGE';
 export const ACCESSTOKEN = 'ACCESSTOKEN';
 export const DOWNLOAD_ALL = 'DOWNLOAD_ALL';
 export const CHANGE_TAB= 'CHANGE_TAB';
@@ -7,3 +6,5 @@ export const OPEN_TOPIC= 'OPEN_TOPIC';
 export const CLEAR_TOPIC= 'CLEAR_TOPIC';
 export const TOPIC_COLLECT= 'TOPIC_COLLECT';
 export const FETCH_DETAIL= 'FETCH_DETAIL';
+export const FETCH_MESSAGE= 'FETCH_MESSAGE';
+export const LOGIN_OUT= 'LOGIN_OUT';

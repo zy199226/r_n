@@ -1,5 +1,4 @@
 import {
-	OPEN_CHANGE,
 	ACCESSTOKEN,
 	DOWNLOAD_ALL,
 	CHANGE_TAB,
@@ -7,14 +6,12 @@ import {
 	OPEN_TOPIC,
 	CLEAR_TOPIC,
 	TOPIC_COLLECT,
-	FETCH_DETAIL
+	FETCH_DETAIL,
+	FETCH_MESSAGE,
+	LOGIN_OUT
 } from '../constants/constants';
 import fetch from 'isomorphic-fetch';
 import {Toast} from 'antd-mobile';
-
-export const openChange = () => {
-	return {type: OPEN_CHANGE};
-};
 
 export const fetchLogin = token => {
 	return dispatch => {
@@ -25,23 +22,20 @@ export const fetchLogin = token => {
 			},
 			body: `accesstoken=${token}`
 		}).then(response => response.json()).then(json => {
-			dispatch(fetchLogins(json, token));
+			dispatch({type: ACCESSTOKEN, json, token});
 			dispatch(fetchCollect(json.loginname));
+			window.location.href = './#/';
 		});
 	};
 };
-
-const fetchLogins = (json, token) => ({type: ACCESSTOKEN, json, token});
 
 const fetchCollect = (loginname) => {
 	return dispacth => {
 		fetch(`https://cnodejs.org/api/v1/topic_collect/${loginname}`).then(response => response.json()).then(json => {
-			dispacth(fetchCollects(json.data));
+			dispacth({type: TOPIC_COLLECT, data: json.data});
 		});
 	};
 };
-
-const fetchCollects = data => ({type: TOPIC_COLLECT, data});
 
 
 let isLoading = true;
@@ -50,14 +44,12 @@ export const fetchAll = (tab, page = 1, limit = 20) => {
 		if (isLoading) {
 			isLoading = false;
 			fetch(`https://cnodejs.org/api/v1/topics?tab=${tab}&page=${page}&limit=${limit}`).then(response => response.json()).then(json => {
-				dispatch(fetchAlls(json, tab, page));
+				dispatch({type: DOWNLOAD_ALL, json, tab, page});
 				isLoading = true;
 			});
 		}
 	};
 };
-
-const fetchAlls = (json, tab, page) => ({type: DOWNLOAD_ALL, json, tab, page});
 
 
 export const changeTab = key => ({type: CHANGE_TAB, key});
@@ -68,13 +60,9 @@ export const changeTop = (top, tab) => ({type: SCROLLTOP, top, tab});
 
 export const fetchTopic = id => {
 	return dispatch => {
-		fetch(`https://cnodejs.org/api/v1/topic/${id}`).then(response => response.json()).then(json => {
-			dispatch(fetchTopics(json));
-		});
+		fetch(`https://cnodejs.org/api/v1/topic/${id}`).then(response => response.json()).then(json => dispatch({type: OPEN_TOPIC, json}));
 	};
 };
-
-const fetchTopics = json => ({type: OPEN_TOPIC, json});
 
 export const clearTopics = () => ({type: CLEAR_TOPIC});
 
@@ -160,9 +148,17 @@ export const fetchPublish = (accessToken, title, tab, content) => {
 export const fetchDetail = loginname => {
 	return dispatch => {
 		fetch(`https://cnodejs.org/api/v1/user/${loginname}`).then(response => response.json()).then(json => {
-			dispatch(fetchDetails(json.data));
+			dispatch({type: FETCH_DETAIL, data: json.data});
 		});
 	};
 };
 
-const fetchDetails = data => ({type: FETCH_DETAIL, data});
+
+export const fetchMessage = accesstoken => {
+	return dispatch => {
+		fetch(`https://cnodejs.org/api/v1/messages?accesstoken=${accesstoken}`).then(response => response.json()).then(json => dispatch({type: FETCH_MESSAGE, hasNotRead: json.data.hasnot_read_messages, hasRead: json.data.has_read_messages}));
+	};
+};
+
+
+export const loginOut = () => ({type: LOGIN_OUT});

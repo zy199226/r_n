@@ -66,7 +66,7 @@ class PTmain extends Component {
                 }} loading={loading} onClick={() => {
                     this.publish();
                 }}>
-                    发布
+                    {loading ? '发布中' : '发布'}
                 </Button>
             </div>
         );
