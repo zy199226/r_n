@@ -18,6 +18,8 @@
 ## 预览
 [点击这里查看DEMO](https://zy199226.github.io/saber/#/)
 
+![DEMO二维码]()
+
 ## 运行项目
 ```
   git clone https://github.com/zy199226/r_n.git
