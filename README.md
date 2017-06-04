@@ -18,7 +18,7 @@
 ## 预览
 [点击这里查看DEMO](https://zy199226.github.io/saber/#/)
 
-![DEMO二维码]()
+![DEMO二维码](https://github.com/zy199226/r_n/blob/master/images/saber.png)
 
 ## 运行项目
 ```
