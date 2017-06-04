@@ -23,7 +23,10 @@ const initialState = {
 		selTab: '1'
     },
 	article: {
-		topicId: ''
+		topicId: '',
+		data: {
+			replies: []
+		}
 	},
 	profile: {
 		collectedTopics: [],
@@ -70,7 +73,9 @@ export default function updata(state = initialState, action) {
 		case CLEAR_TOPIC:
 			return Object.assign({}, state, {
 				article: {
-					data: '',
+					data: {
+						replies: []
+					},
 					topicId: ''
 				}
 			});

@@ -11,6 +11,7 @@ class Login extends Component {
         let token = document.querySelector('.token input').value;
         dispatch(fetchLogin(token));
         window.localStorage.setItem('accesstoken', token);
+        window.location.href = './#/';
     }
 
     render() {

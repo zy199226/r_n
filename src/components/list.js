@@ -5,7 +5,7 @@ import {fetchAll, changeTop} from '../actions/actions';
 
 import {windowH, time} from '../until/value';
 
-import {List} from 'antd-mobile';
+import {List, Icon} from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -89,6 +89,15 @@ class Lists extends Component {
 				this.scrollLoad(this.refs[tab]);
 			}}>
 				{mapTopics}
+
+				<div style={{
+					padding: '1rem 0',
+					background: '#fff'
+				}}>
+					<Icon type='loading' />
+					<p style={{textAlign: 'center', marginTop: '0.3rem'}}>loading</p>
+				</div>
+
 			</div>
 		);
 	}

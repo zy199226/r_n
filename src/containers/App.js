@@ -12,10 +12,7 @@ class App extends Component {
 	}
 
 	componentWillReceiveProps(newProps) {
-		const {loginName, accessToken, dispatch} = newProps;
-		if (loginName !== this.props.loginName) {
-			dispatch(fetchDetail(loginName));
-		}
+		
 	}
 
 	render() {

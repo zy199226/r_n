@@ -69,7 +69,7 @@ class Content extends Component {
 										<span style={{
 											lineHeight: '1.6em'
 										}}>{`${article.reply_count}/${article.visit_count}`}</span>
-										{login.loginName
+										{login.loginname
 											?
 											(<Button type={this.state.isCollected ? 'primary' : 'ghost'} inline size='small' style={{
 												float: 'right'

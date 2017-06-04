@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {List} from 'antd-mobile';
 
+import {fetchDetail} from '../actions/actions';
+
 import AnotherHeader from '../components/AnotherHeader';
 
 import {time, windowH} from '../until/value';
@@ -11,7 +13,21 @@ const Item = List.Item;
 
 class Center extends Component {
     componentWillMount() {
-        // const {accessToken, dispatch} = this.props;
+        const {name} = this.props;
+        if (name) {
+            this.updata(this.props);
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if (newProps.name != this.props.name) {
+            this.updata(newProps);
+        }
+    }
+
+    updata(props) {
+        const {name, dispatch} = props;
+        dispatch(fetchDetail(name));
     }
 
     render() {
@@ -102,7 +118,8 @@ const mapStateToProps = state => {
         score: state.profile.score,
         collectedTopics: state.profile.collectedTopics,
         recentReplies: state.profile.recent_replies,
-        recentTopics: state.profile.recent_topics
+        recentTopics: state.profile.recent_topics,
+        name: state.login.loginname
      };
 };
 

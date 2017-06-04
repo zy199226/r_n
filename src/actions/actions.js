@@ -24,7 +24,6 @@ export const fetchLogin = token => {
 		}).then(response => response.json()).then(json => {
 			dispatch({type: ACCESSTOKEN, json, token});
 			dispatch(fetchCollect(json.loginname));
-			window.location.href = './#/';
 		});
 	};
 };
