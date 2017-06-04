@@ -65,7 +65,7 @@ class Lists extends Component {
 					if (tt && tt.topics) {
 						return ([...tt.topics].map((topics, index) => <Link key={index} to={`topic/${topics.id}`}><Item key={index} thumb={topics.author.avatar_url} multipleLine style={{
 							borderTop: '1px solid #ddd'
-						}}>{topics.title}
+						}}>{topics.top ? <span style={{color: 'blue', marginRight: '0.2rem'}}>顶</span> : ''}{topics.good ? <span style={{color: 'red', marginRight: '0.2rem'}}>精</span> : ''}{topics.title}
 							<Brief>
 								<span>{`${topics.reply_count}/${topics.visit_count}`}</span>
 								<span style={{
@@ -90,13 +90,16 @@ class Lists extends Component {
 			}}>
 				{mapTopics}
 
-				<div style={{
-					padding: '1rem 0',
-					background: '#fff'
-				}}>
-					<Icon type='loading' />
-					<p style={{textAlign: 'center', marginTop: '0.3rem'}}>loading</p>
-				</div>
+				{tt ?
+					<div style={{
+						padding: '1rem 0',
+						background: '#fff'
+					}}>
+						<Icon type='loading' />
+						<p style={{textAlign: 'center', marginTop: '0.3rem'}}>loading</p>
+					</div>
+					: ''
+				}
 
 			</div>
 		);
