@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {changeTab, fetchAll} from '../actions/actions';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeTab, fetchAll } from '../actions/actions';
 import Lists from '../components/List';
 
-import {Tabs} from 'antd-mobile';
+import { Tabs } from 'antd-mobile';
+
 const TabPane = Tabs.TabPane;
 
 const tabChn = [
@@ -31,45 +32,43 @@ const tabChn = [
 ];
 
 class Tab extends Component {
-	constructor() {
-		super();
-		this.handleTabClick = this.handleTabClick.bind(this);
-	}
+    constructor() {
+        super();
+        this.handleTabClick = this.handleTabClick.bind(this);
+    }
 
-	componentWillMount() {
-		const {selTab} = this.props;
-		this.handleTabClick(selTab);
-	}
+    componentWillMount() {
+        const { selTab } = this.props;
+        this.handleTabClick(selTab);
+    }
 
-	handleTabClick(key = '1') {
-		let {data, dispatch} = this.props;
-		let tab = tabChn[key - 1].tab;
-		if (!data[tab]) {
-			dispatch(fetchAll(tab));
-		}
-		dispatch(changeTab(key));
-	}
+    handleTabClick(key = '1') {
+        const { data, dispatch } = this.props;
+        const tab = tabChn[key - 1].tab;
+        if (!data[tab]) {
+            dispatch(fetchAll(tab));
+        }
+        dispatch(changeTab(key));
+    }
 
     render() {
-        const {selTab, dispatch} = this.props;
+        const { selTab, dispatch } = this.props;
 
         return (
             <div>
-                <Tabs activeKey={selTab} swipeable={false} animated={true} onChange={this.handleTabClick}>
-                    {tabChn.map(i => <TabPane tab={i.name} key={i.key}>
-						<Lists tab={i.tab}/>
-                    </TabPane>)}
+                <Tabs activeKey={selTab} swipeable={false} animated onChange={this.handleTabClick}>
+                    {tabChn.map(i => (<TabPane tab={i.name} key={i.key}>
+                        <Lists tab={i.tab} />
+                    </TabPane>))}
                 </Tabs>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-	return {
-		data: state.home,
-		selTab: state.home.selTab
-	};
-};
+const mapStateToProps = state => ({
+    data: state.home,
+    selTab: state.home.selTab
+});
 
 export default connect(mapStateToProps)(Tab);

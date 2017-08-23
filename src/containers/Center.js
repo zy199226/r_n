@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import {List} from 'antd-mobile';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { List } from 'antd-mobile';
 
-import {fetchDetail} from '../actions/actions';
+import { fetchDetail } from '../actions/actions';
 
 import AnotherHeader from '../components/AnotherHeader';
 
-import {time, windowH} from '../until/value';
+import { time, windowH } from '../until/value';
 
 const Item = List.Item;
 
 class Center extends Component {
     componentWillMount() {
-        const {name} = this.props;
+        const { name } = this.props;
         if (name) {
             this.updata(this.props);
         }
@@ -26,22 +26,23 @@ class Center extends Component {
     }
 
     updata(props) {
-        const {name, dispatch} = props;
+        const { name, dispatch } = props;
         dispatch(fetchDetail(name));
     }
 
     render() {
-        const {pic, loginname, createAt, score, collectedTopics, recentReplies, recentTopics} = this.props;
+        const { pic, loginname, createAt, score, collectedTopics, recentReplies, recentTopics } = this.props;
 
         return (
             <div>
-                <AnotherHeader title='个人中心'/>
+                <AnotherHeader title="个人中心" />
                 <div style={{
                     maxHeight: windowH - 90,
                     overflowY: 'auto',
                     paddingBottom: '40px',
                     boxSizing: 'border-box'
-                }}>
+                }}
+                >
                     <div>
                         <div style={{
                             width: '4rem',
@@ -49,57 +50,76 @@ class Center extends Component {
                             borderRadius: '50%',
                             margin: '1rem auto 0.5rem',
                             overflow: 'hidden'
-                        }}>
-                            <img src={pic} style={{
-                                width: '100%',
-                                height: '100%'
-                            }}></img>
+                        }}
+                        >
+                            <img src={pic}
+                                style={{
+                                    width: '100%',
+                                    height: '100%'
+                                }}
+                            />
                         </div>
                         <p style={{
                             textAlign: 'center',
                             marginTop: '0.4rem'
-                        }}>{loginname}</p>
+                        }}
+                        >{loginname}</p>
                         <p style={{
                             textAlign: 'center',
                             marginTop: '0.4rem'
-                        }}>积分：{score}</p>
+                        }}
+                        >积分：{score}</p>
                         <p style={{
                             textAlign: 'center',
                             marginTop: '0.4rem'
-                        }}>注册于：{time(createAt)}</p>
+                        }}
+                        >注册于：{time(createAt)}</p>
                     </div>
                     <div style={{
                         padding: '0 30px',
                         textAlign: 'center'
-                    }}>
-                        <div className='detail-list'>
+                    }}
+                    >
+                        <div className="detail-list">
                             <h3>收藏的话题</h3>
                             <List>
-                                {collectedTopics.map((i, key) => <Link key={key} to={`topic/${i.id}`}><Item key={key} thumb={i.author.avatar_url} wrap style={{
-                                    borderTop: '1px solid #ddd'
-                                }}>
+                                {collectedTopics.map((i, key) => (<Link key={key} to={`topic/${i.id}`}><Item key={key}
+                                  thumb={i.author.avatar_url}
+                                  wrap
+                                  style={{
+                                        borderTop: '1px solid #ddd'
+                                    }}
+                                >
                                     {i.title}
-                                </Item></Link>)}
+                                </Item></Link>))}
                             </List>
                         </div>
-                        <div className='detail-list'>
+                        <div className="detail-list">
                             <h3>最近参与的话题</h3>
                             <List>
-                                {recentReplies.map((i, key) => <Link key={key} to={`topic/${i.id}`}><Item key={key} thumb={i.author.avatar_url} wrap style={{
-                                    borderTop: '1px solid #ddd'
-                                }}>
+                                {recentReplies.map((i, key) => (<Link key={key} to={`topic/${i.id}`}><Item key={key}
+                                    thumb={i.author.avatar_url}
+                                  wrap
+                                  style={{
+                                        borderTop: '1px solid #ddd'
+                                    }}
+                                >
                                     {i.title}
-                                </Item></Link>)}
+                                </Item></Link>))}
                             </List>
                         </div>
-                        <div className='detail-list'>
+                        <div className="detail-list">
                             <h3>最近创建的话题</h3>
                             <List>
-                                {recentTopics.map((i, key) => <Link key={key} to={`topic/${i.id}`}><Item key={key} thumb={i.author.avatar_url} wrap style={{
-                                    borderTop: '1px solid #ddd'
-                                }}>
+                                {recentTopics.map((i, key) => (<Link key={key} to={`topic/${i.id}`}><Item key={key}
+                                    thumb={i.author.avatar_url}
+                                    wrap
+                                    style={{
+                                        borderTop: '1px solid #ddd'
+                                    }}
+                                >
                                     {i.title}
-                                </Item></Link>)}
+                                </Item></Link>))}
                             </List>
                         </div>
                     </div>
@@ -109,18 +129,16 @@ class Center extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        accessToken: state.login.accessToken,
-        pic: state.profile.avatar_url,
-        loginname: state.profile.loginname,
-        createAt: state.profile.create_at,
-        score: state.profile.score,
-        collectedTopics: state.profile.collectedTopics,
-        recentReplies: state.profile.recent_replies,
-        recentTopics: state.profile.recent_topics,
-        name: state.login.loginname
-     };
-};
+const mapStateToProps = state => ({
+    accessToken: state.login.accessToken,
+    pic: state.profile.avatar_url,
+    loginname: state.profile.loginname,
+    createAt: state.profile.create_at,
+    score: state.profile.score,
+    collectedTopics: state.profile.collectedTopics,
+    recentReplies: state.profile.recent_replies,
+    recentTopics: state.profile.recent_topics,
+    name: state.login.loginname
+});
 
 export default connect(mapStateToProps)(Center);
